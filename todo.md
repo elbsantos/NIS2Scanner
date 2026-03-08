@@ -44,3 +44,13 @@
 ## Fase 6: Entrega
 - [ ] Documentação final
 - [ ] Checkpoint e publicação
+
+
+## Fase 7: Integração Nmap - Scan de Rede Real
+- [ ] Instalar e configurar Nmap
+- [ ] Criar wrapper Nmap com suporte a SME e Supply Chain modes
+- [ ] Implementar executor de scans com fila de processamento
+- [ ] Integrar resultados Nmap com análise NVD/Vulners
+- [ ] Criar testes unitários para módulo de scan
+- [ ] Validar scans reais em localhost
+- [ ] Commit para branch dev
