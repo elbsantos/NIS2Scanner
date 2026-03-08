@@ -47,10 +47,10 @@
 
 
 ## Fase 7: Integração Nmap - Scan de Rede Real
-- [ ] Instalar e configurar Nmap
-- [ ] Criar wrapper Nmap com suporte a SME e Supply Chain modes
-- [ ] Implementar executor de scans com fila de processamento
-- [ ] Integrar resultados Nmap com análise NVD/Vulners
-- [ ] Criar testes unitários para módulo de scan
+- [x] Instalar e configurar Nmap
+- [x] Criar wrapper Nmap com suporte a SME e Supply Chain modes
+- [x] Implementar executor de scans com fila de processamento
+- [x] Integrar resultados Nmap com análise NVD/Vulners
+- [x] Criar testes unitários para módulo de scan (12 testes passando)
 - [ ] Validar scans reais em localhost
-- [ ] Commit para branch dev
+- [x] Commit para branch dev
