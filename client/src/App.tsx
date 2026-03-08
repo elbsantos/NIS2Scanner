@@ -8,15 +8,21 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import NewScan from "./pages/NewScan";
 import ScanDetails from "./pages/ScanDetails";
+import Reports from "./pages/Reports";
+import Scans from "./pages/Scans";
+import Assets from "./pages/Assets";
 
 function Router() {
   return (
     <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/dashboard"} component={Dashboard} />
-      <Route path={"/scans/new"} component={NewScan} />
-      <Route path={"/scans/:id"} component={ScanDetails} />
-      <Route path={"/404"} component={NotFound} />
+      <Route path="/" component={Home} />
+      <Route path="/dashboard" component={Dashboard} />
+      <Route path="/scans" component={Scans} />
+      <Route path="/scans/new" component={NewScan} />
+      <Route path="/scans/:id" component={ScanDetails} />
+      <Route path="/reports" component={Reports} />
+      <Route path="/assets" component={Assets} />
+      <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
     </Switch>

@@ -54,3 +54,14 @@
 - [x] Criar testes unitários para módulo de scan (12 testes passando)
 - [ ] Validar scans reais em localhost
 - [x] Commit para branch dev
+
+
+## Fase 8: Correção de Bugs e Geração de Relatórios
+- [x] Investigar e corrigir erro da página 2 (atualizou menu do sidebar)
+- [x] Implementar backend de geração de relatórios (PDF/HTML/JSON)
+- [x] Criar plano de ação com recomendações priorizadas
+- [x] Implementar frontend de visualização de relatórios (página Reports)
+- [x] Implementar página de Scans com gerenciamento
+- [x] Implementar página de Ativos com inventário
+- [x] Testar geração de relatórios (13 testes passando)
+- [ ] Commit para branch dev
