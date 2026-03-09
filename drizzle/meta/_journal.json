@@ -15,6 +15,13 @@
       "when": 1772920803047,
       "tag": "0001_plain_gertrude_yorkes",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1773095036019,
+      "tag": "0002_wild_skin",
+      "breakpoints": true
     }
   ]
 }

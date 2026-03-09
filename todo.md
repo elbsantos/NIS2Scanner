@@ -65,3 +65,19 @@
 - [x] Implementar página de Ativos com inventário
 - [x] Testar geração de relatórios (13 testes passando)
 - [ ] Commit para branch dev
+
+
+## Fase 9: Integração MITRE ATT&CK + ISO 27001 + NIS2
+- [x] Implementar integração MITRE ATT&CK (técnicas, táticas, grupos)
+- [x] Mapear CVEs para técnicas MITRE ATT&CK
+- [x] Implementar mapper ISO 27001 (14 domínios, 93 controlos)
+- [x] Mapear vulnerabilidades para controlos ISO 27001
+- [x] Criar tabelas de banco de dados para mapeamentos
+- [x] Implementar dashboard de conformidade integrado (3 abas)
+- [x] Criar matriz de conformidade visual
+- [x] Implementar gap analysis
+- [x] Gerar relatórios executivos (C-Level)
+- [x] Gerar relatórios técnicos detalhados
+- [x] Criar testes unitários para mapeamentos (80 testes passando)
+- [x] Testar e validar integração completa
+- [ ] Commit para branch dev

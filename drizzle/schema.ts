@@ -239,3 +239,110 @@ export const cveCache = mysqlTable("cveCache", {
 
 export type CVECache = typeof cveCache.$inferSelect;
 export type InsertCVECache = typeof cveCache.$inferInsert;
+
+
+/**
+ * MITRE ATT&CK Techniques table
+ */
+export const mitreAttackTechniques = mysqlTable("mitreAttackTechniques", {
+  id: varchar("id", { length: 20 }).primaryKey(), // T1001, T1002, etc.
+  name: varchar("name", { length: 255 }).notNull(),
+  tactic: varchar("tactic", { length: 100 }).notNull(), // Reconnaissance, Execution, etc.
+  description: text("description"),
+  platforms: text("platforms"), // JSON array of affected platforms
+  detectionMethods: text("detectionMethods"), // JSON array
+  mitigations: text("mitigations"), // JSON array
+  externalReferences: text("externalReferences"), // JSON
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type MitreAttackTechnique = typeof mitreAttackTechniques.$inferSelect;
+export type InsertMitreAttackTechnique = typeof mitreAttackTechniques.$inferInsert;
+
+/**
+ * ISO 27001 Controls table
+ */
+export const iso27001Controls = mysqlTable("iso27001Controls", {
+  id: varchar("id", { length: 10 }).primaryKey(), // A.5.1, A.5.2, etc.
+  domain: varchar("domain", { length: 10 }).notNull(), // A.5, A.6, etc.
+  controlCode: varchar("controlCode", { length: 10 }).notNull(), // A.5.1, A.5.2, etc.
+  description: text("description").notNull(),
+  controlObjective: text("controlObjective"),
+  implementationGuidance: text("implementationGuidance"),
+  category: varchar("category", { length: 100 }), // e.g., "Organizational", "People", "Physical", "Technical"
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type ISO27001Control = typeof iso27001Controls.$inferSelect;
+export type InsertISO27001Control = typeof iso27001Controls.$inferInsert;
+
+/**
+ * Organization ISO 27001 Implementation Status
+ */
+export const organizationISO27001Status = mysqlTable("organizationISO27001Status", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  controlId: varchar("controlId", { length: 10 }).notNull(),
+  implementationStatus: mysqlEnum("implementationStatus", [
+    "not_started",
+    "in_progress",
+    "implemented",
+    "optimized",
+  ]).default("not_started"),
+  evidence: text("evidence"), // Documentation or proof of implementation
+  responsible: varchar("responsible", { length: 255 }),
+  deadline: datetime("deadline"),
+  lastReviewDate: datetime("lastReviewDate"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type OrganizationISO27001Status = typeof organizationISO27001Status.$inferSelect;
+export type InsertOrganizationISO27001Status = typeof organizationISO27001Status.$inferInsert;
+
+/**
+ * CVE to MITRE ATT&CK Mapping
+ */
+export const cveMitreMapping = mysqlTable("cveMitreMapping", {
+  id: int("id").autoincrement().primaryKey(),
+  cveId: varchar("cveId", { length: 20 }).notNull(),
+  techniqueId: varchar("techniqueId", { length: 20 }).notNull(),
+  confidence: decimal("confidence", { precision: 3, scale: 2 }), // 0.00 to 1.00
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type CVEMitreMapping = typeof cveMitreMapping.$inferSelect;
+export type InsertCVEMitreMapping = typeof cveMitreMapping.$inferInsert;
+
+/**
+ * Vulnerability to ISO 27001 Control Mapping
+ */
+export const vulnerabilityISO27001Mapping = mysqlTable("vulnerabilityISO27001Mapping", {
+  id: int("id").autoincrement().primaryKey(),
+  vulnerabilityId: int("vulnerabilityId").notNull(),
+  controlId: varchar("controlId", { length: 10 }).notNull(),
+  relevance: mysqlEnum("relevance", ["critical", "high", "medium", "low"]).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type VulnerabilityISO27001Mapping = typeof vulnerabilityISO27001Mapping.$inferSelect;
+export type InsertVulnerabilityISO27001Mapping = typeof vulnerabilityISO27001Mapping.$inferInsert;
+
+/**
+ * Compliance Score History - track compliance over time
+ */
+export const complianceScoreHistory = mysqlTable("complianceScoreHistory", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  nis2Score: decimal("nis2Score", { precision: 5, scale: 2 }), // 0.00 to 100.00
+  iso27001Score: decimal("iso27001Score", { precision: 5, scale: 2 }),
+  mitreAttackCoverage: decimal("mitreAttackCoverage", { precision: 5, scale: 2 }),
+  overallRiskScore: decimal("overallRiskScore", { precision: 5, scale: 2 }),
+  vulnerabilityCount: int("vulnerabilityCount"),
+  criticalVulnerabilities: int("criticalVulnerabilities"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type ComplianceScoreHistory = typeof complianceScoreHistory.$inferSelect;
+export type InsertComplianceScoreHistory = typeof complianceScoreHistory.$inferInsert;
