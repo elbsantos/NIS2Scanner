@@ -102,3 +102,13 @@
 - [x] Integrar notificações com sistema de scans
 - [x] Testar e validar sistema de alertas (11 testes passando)
 - [ ] Commit para branch dev
+
+
+## Fase 12: Dashboard de Histórico de Conformidade
+- [x] Criar schema para histórico de conformidade (3 tabelas)
+- [x] Implementar serviço de cálculo e armazenamento de scores
+- [x] Criar componentes de gráficos de tendência com Recharts
+- [x] Implementar página de Histórico de Conformidade
+- [x] Adicionar comparação antes/depois com métricas
+- [x] Testar e validar dashboard (16 testes passando)
+- [ ] Commit para branch dev

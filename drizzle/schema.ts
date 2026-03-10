@@ -346,3 +346,70 @@ export const complianceScoreHistory = mysqlTable("complianceScoreHistory", {
 
 export type ComplianceScoreHistory = typeof complianceScoreHistory.$inferSelect;
 export type InsertComplianceScoreHistory = typeof complianceScoreHistory.$inferInsert;
+
+
+/**
+ * Compliance Improvement Actions - track remediation actions and their impact
+ */
+export const complianceImprovementActions = mysqlTable("complianceImprovementActions", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  title: varchar("title", { length: 255 }).notNull(),
+  description: text("description"),
+  priority: mysqlEnum("priority", ["critical", "high", "medium", "low"]).notNull(),
+  status: mysqlEnum("status", ["open", "in_progress", "completed", "cancelled"]).default("open"),
+  estimatedEffort: varchar("estimatedEffort", { length: 50 }), // e.g., "2-4 hours", "1 week"
+  actualEffort: varchar("actualEffort", { length: 50 }),
+  deadline: datetime("deadline"),
+  completedAt: datetime("completedAt"),
+  relatedNIS2Articles: json("relatedNIS2Articles"), // Array of article IDs
+  relatedISO27001Controls: json("relatedISO27001Controls"), // Array of control IDs
+  relatedCVEs: json("relatedCVEs"), // Array of CVE IDs
+  expectedImpact: text("expectedImpact"), // Description of expected compliance improvement
+  actualImpact: text("actualImpact"), // Measured impact after completion
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type ComplianceImprovementAction = typeof complianceImprovementActions.$inferSelect;
+export type InsertComplianceImprovementAction = typeof complianceImprovementActions.$inferInsert;
+
+/**
+ * Compliance Snapshots - before/after snapshots for actions
+ */
+export const complianceSnapshots = mysqlTable("complianceSnapshots", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  actionId: int("actionId"),
+  snapshotType: mysqlEnum("snapshotType", ["baseline", "before_action", "after_action", "periodic"]).notNull(),
+  nis2Score: decimal("nis2Score", { precision: 5, scale: 2 }),
+  iso27001Score: decimal("iso27001Score", { precision: 5, scale: 2 }),
+  mitreAttackCoverage: decimal("mitreAttackCoverage", { precision: 5, scale: 2 }),
+  overallRiskScore: decimal("overallRiskScore", { precision: 5, scale: 2 }),
+  vulnerabilityCount: int("vulnerabilityCount"),
+  criticalVulnerabilities: int("criticalVulnerabilities"),
+  complianceGaps: int("complianceGaps"),
+  notes: text("notes"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type ComplianceSnapshot = typeof complianceSnapshots.$inferSelect;
+export type InsertComplianceSnapshot = typeof complianceSnapshots.$inferInsert;
+
+/**
+ * Compliance Trends - aggregated metrics for dashboard visualization
+ */
+export const complianceTrends = mysqlTable("complianceTrends", {
+  id: int("id").autoincrement().primaryKey(),
+  organizationId: int("organizationId").notNull(),
+  month: varchar("month", { length: 7 }).notNull(), // YYYY-MM format
+  nis2ScoreAverage: decimal("nis2ScoreAverage", { precision: 5, scale: 2 }),
+  iso27001ScoreAverage: decimal("iso27001ScoreAverage", { precision: 5, scale: 2 }),
+  mitreAttackCoverageAverage: decimal("mitreAttackCoverageAverage", { precision: 5, scale: 2 }),
+  actionsCompletedCount: int("actionsCompletedCount"),
+  vulnerabilitiesResolvedCount: int("vulnerabilitiesResolvedCount"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type ComplianceTrend = typeof complianceTrends.$inferSelect;
+export type InsertComplianceTrend = typeof complianceTrends.$inferInsert;

@@ -12,6 +12,7 @@ import Reports from "./pages/Reports";
 import Scans from "./pages/Scans";
 import Assets from "./pages/Assets";
 import Compliance from "./pages/Compliance";
+import ComplianceHistory from "./pages/ComplianceHistory";
 
 function Router() {
   return (
@@ -24,6 +25,7 @@ function Router() {
       <Route path="/reports" component={Reports} />
       <Route path="/assets" component={Assets} />
       <Route path="/compliance" component={Compliance} />
+      <Route path="/compliance/history" component={ComplianceHistory} />
       <Route path="/404" component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
