@@ -92,3 +92,13 @@
 - [x] Criar testes unitários para geração de PDF (16 testes passando)
 - [x] Testar e validar relatórios gerados
 - [ ] Commit para branch dev
+
+
+## Fase 11: Sistema de Alertas em Tempo Real
+- [x] Implementar servidor WebSocket para notificações
+- [x] Criar serviço de gerenciamento de notificações com histórico
+- [x] Implementar cliente WebSocket no frontend com React hooks
+- [x] Criar componentes de UI para notificações (badges, toasts, painel)
+- [x] Integrar notificações com sistema de scans
+- [x] Testar e validar sistema de alertas (11 testes passando)
+- [ ] Commit para branch dev
