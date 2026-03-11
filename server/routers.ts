@@ -64,7 +64,19 @@ export const appRouter = router({
       }),
 
     get: protectedProcedure.query(async ({ ctx }) => {
-      return getOrganizationByOwnerId(ctx.user.id);
+      const existing = await getOrganizationByOwnerId(ctx.user.id);
+      if (existing) {
+        return existing;
+      }
+
+      // Auto-create organization if it doesn't exist
+      const org = await createOrganization({
+        name: `${ctx.user.name || 'User'}'s Organization`,
+        ownerId: ctx.user.id,
+        country: "PT",
+      });
+
+      return org;
     }),
   }),
 
